@@ -1,4 +1,4 @@
-# BayesianSystematicsSampler
+# Bayesian estimation of cross-coupling and reflection systematics in 21cm array visibility data
 
 Notebooks for the modelling and subtraction of signal chain systematics in simulated 21-cm visibilities using a Hamiltonian Monte Carlo sampler. 
 
