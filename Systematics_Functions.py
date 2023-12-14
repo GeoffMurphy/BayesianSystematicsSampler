@@ -143,6 +143,63 @@ def Auto_Systematics_No_T(refl_amp, refl_dly ,refl_phs,
 
 '''---------------------------------------------------------------------------------------------'''
 
+''' Add systematics to a cross-correlation (just coupling)'''
+
+
+def Cross_Systematics(refl_amp,refl_dly,refl_phs,
+                cc_amps, cc_dlys_pos, cc_dlys_neg, cc_phs,
+                subreflAmps, subreflDlys, subreflPhses,
+                FGAmps_real,FGAmps_imag,FG_Evecs,EORFAmps,EOR_FModes,
+                freqs, cc_Ncopies, NSubrefls,N_FAmps,N_FGAmps,autovis):
+    
+    CorrVisR = 0
+    CorrVisIm = 0
+
+    for nn in range(0,N_FGAmps):
+        CorrVisR += FG_Evecs[0][nn]*FGAmps_real[nn] - FG_Evecs[1][nn]*FGAmps_imag[nn]
+        CorrVisIm += FG_Evecs[1][nn]*FGAmps_real[nn] + FG_Evecs[0][nn]*FGAmps_imag[nn]
+        
+    for uu in range(0,N_FAmps):
+        CorrVisR += EOR_FModes[0][uu]*EORFAmps[uu]
+        CorrVisIm += EOR_FModes[1][uu]*EORFAmps[uu]
+
+    for qq in range(0,cc_Ncopies):
+        #Only modelling the positive delay systematics
+        CorrVisR = CorrVisR + (autovis[0] * cc_amps[qq] * np.cos(2*np.pi*freqs*cc_dlys_pos[qq]+cc_phs[qq]) )# - autovis[1] * cc_amps[qq] * np.sin(2*np.pi*freqs*cc_dlys_pos[qq]+cc_phs[qq]))
+        
+        CorrVisIm = CorrVisIm + (autovis[0] * cc_amps[qq] * np.sin(2*np.pi*freqs*cc_dlys_pos[qq]+cc_phs[qq]) )# + autovis[1] * cc_amps[qq] * np.cos(2*np.pi*freqs*cc_dlys_pos[qq]+cc_phs[qq]))
+
+    return T.stack([CorrVisR,CorrVisIm],axis=1)
+
+def Cross_Systematics_No_T(refl_amp,refl_dly,refl_phs,
+                cc_amps, cc_dlys_pos, cc_dlys_neg, cc_phs,
+                subreflAmps, subreflDlys, subreflPhses,
+                FGAmps_real,FGAmps_imag,FG_Evecs,EORFAmps,EOR_FModes,
+                freqs, cc_Ncopies, NSubrefls,N_FAmps,N_FGAmps,autovis):
+    
+    CorrVisR = 0
+    CorrVisIm = 0
+
+    for nn in range(0,N_FGAmps):
+        CorrVisR += FG_Evecs[0][nn]*FGAmps_real[nn] - FG_Evecs[1][nn]*FGAmps_imag[nn]
+        CorrVisIm += FG_Evecs[1][nn]*FGAmps_real[nn] + FG_Evecs[0][nn]*FGAmps_imag[nn]
+        
+    for uu in range(0,N_FAmps):
+        CorrVisR += EOR_FModes[0][uu]*EORFAmps[uu]
+        CorrVisIm += EOR_FModes[1][uu]*EORFAmps[uu]
+
+    for qq in range(0,cc_Ncopies):
+        #Only modelling the positive delay systematics
+        CorrVisR = CorrVisR + (autovis[0] * cc_amps[qq] * np.cos(2*np.pi*freqs*cc_dlys_pos[qq]+cc_phs[qq]) )# - autovis[1] * cc_amps[qq] * np.sin(2*np.pi*freqs*cc_dlys_pos[qq]+cc_phs[qq]))
+        
+        CorrVisIm = CorrVisIm + (autovis[0] * cc_amps[qq] * np.sin(2*np.pi*freqs*cc_dlys_pos[qq]+cc_phs[qq]) )# + autovis[1] * cc_amps[qq] * np.cos(2*np.pi*freqs*cc_dlys_pos[qq]+cc_phs[qq]))
+
+    return np.column_stack([CorrVisR,CorrVisIm])
+
+
+    
+'''---------------------------------------------------------------------------------------------'''
+
 ''' Simply invert the systematics operations to remove the systematics'''
 
 def Auto_Subtract(Obs,refl_amp,refl_dly,refl_phs,
@@ -228,3 +285,5 @@ def Auto_Subtract(Obs,refl_amp,refl_dly,refl_phs,
             ObsIm = ObsIm - autovisF * amps[qq] * np.sin(2*np.pi*freqs*dlys[qq]+phs[qq]) - autovisF * amps[qq] * np.sin(2*np.pi*freqs*-dlys[qq]+phs[qq])
 
         return np.column_stack([ObsR,ObsIm])
+
+
