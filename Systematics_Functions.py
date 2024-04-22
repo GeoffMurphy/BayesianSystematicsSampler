@@ -24,9 +24,9 @@ def Auto_Systematics(refl_amp, refl_dly ,refl_phs,
         CorrVisIm += FG_Evecs[1][nn]*FGAmps[nn]
     
     
-    for uu in range(0,N_FAmps):
+    '''for uu in range(0,N_FAmps):
         CorrVisR += EOR_FModes[0][uu]*EORFAmps[uu]
-        CorrVisIm += EOR_FModes[1][uu]*EORFAmps[uu]
+        CorrVisIm += EOR_FModes[1][uu]*EORFAmps[uu]'''
 
     #Take the real component as the autocorrelation visibility    
     autovis = CorrVisR
@@ -93,9 +93,9 @@ def Auto_Systematics_No_T(refl_amp, refl_dly ,refl_phs,
         CorrVisIm += FG_Evecs[1][nn]*FGAmps[nn]
     
     
-    for uu in range(0,N_FAmps):
+    '''for uu in range(0,N_FAmps):
         CorrVisR += EOR_FModes[0][uu]*EORFAmps[uu]
-        CorrVisIm += EOR_FModes[1][uu]*EORFAmps[uu]
+        CorrVisIm += EOR_FModes[1][uu]*EORFAmps[uu]'''
 
     #Take the real component as the autocorrelation visibility    
     autovis = CorrVisR
@@ -159,9 +159,9 @@ def Cross_Systematics(refl_amp,refl_dly,refl_phs,
         CorrVisR += FG_Evecs[0][nn]*FGAmps_real[nn] - FG_Evecs[1][nn]*FGAmps_imag[nn]
         CorrVisIm += FG_Evecs[1][nn]*FGAmps_real[nn] + FG_Evecs[0][nn]*FGAmps_imag[nn]
         
-    for uu in range(0,N_FAmps):
+    '''for uu in range(0,N_FAmps):
         CorrVisR += EOR_FModes[0][uu]*EORFAmps[uu]
-        CorrVisIm += EOR_FModes[1][uu]*EORFAmps[uu]
+        CorrVisIm += EOR_FModes[1][uu]*EORFAmps[uu]'''
 
     for qq in range(0,cc_Ncopies):
         #Only modelling the positive delay systematics
@@ -184,9 +184,9 @@ def Cross_Systematics_No_T(refl_amp,refl_dly,refl_phs,
         CorrVisR += FG_Evecs[0][nn]*FGAmps_real[nn] - FG_Evecs[1][nn]*FGAmps_imag[nn]
         CorrVisIm += FG_Evecs[1][nn]*FGAmps_real[nn] + FG_Evecs[0][nn]*FGAmps_imag[nn]
         
-    for uu in range(0,N_FAmps):
+    '''for uu in range(0,N_FAmps):
         CorrVisR += EOR_FModes[0][uu]*EORFAmps[uu]
-        CorrVisIm += EOR_FModes[1][uu]*EORFAmps[uu]
+        CorrVisIm += EOR_FModes[1][uu]*EORFAmps[uu]'''
 
     for qq in range(0,cc_Ncopies):
         #Only modelling the positive delay systematics
@@ -221,9 +221,9 @@ def Auto_Subtract(Obs,refl_amp,refl_dly,refl_phs,
             CorrVisIm += FG_Evecs[1][nn]*FGAmps[nn]
 
 
-        for uu in range(0,N_FAmps):
+        '''for uu in range(0,N_FAmps):
             CorrVisR += EOR_FModes[0][uu]*EORFAmps[uu]
-            CorrVisIm += EOR_FModes[1][uu]*EORFAmps[uu]
+            CorrVisIm += EOR_FModes[1][uu]*EORFAmps[uu]'''
 
         autovisF = CorrVisR
 
